@@ -1,0 +1,36 @@
+/* Paleta de la cafetería (modo claro) */
+:root {
+    --color-primary: #6f4e37;      /* café */
+    --color-secondary: #c8a27a;    /* caramelo */
+    --color-background: #f8f3ec;   /* crema */
+    --color-card: #ffffff;
+    --color-text: #2d2018;
+    --color-text-soft: #7a6a5d;
+    --color-border: #e6dccf;
+
+    --font-family: 'Poppins', sans-serif;
+    --font-size-small: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-large: 1.5rem;
+    --font-size-title: 2.5rem;
+
+    --spacing-small: 8px;
+    --spacing-medium: 16px;
+    --spacing-large: 32px;
+
+    --radius: 12px;
+    --shadow: 0 4px 14px rgba(45, 32, 24, 0.08);
+    --transition-fast: 0.2s ease;
+}
+
+/* Modo oscuro */
+[data-theme='dark'] {
+    --color-primary: #d4a373;
+    --color-secondary: #a47148;
+    --color-background: #1c1612;
+    --color-card: #2a211b;
+    --color-text: #f1e6d8;
+    --color-text-soft: #b8a693;
+    --color-border: #3b2f26;
+    --shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}

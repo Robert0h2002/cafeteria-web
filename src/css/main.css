@@ -1,0 +1,3 @@
+/* Punto de entrada de estilos: base primero, luego componentes */
+@import './base/variables.css';
+@import './base/reset.css';
