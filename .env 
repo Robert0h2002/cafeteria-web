@@ -1,0 +1,2 @@
+# Copia este archivo como .env y pon tu clave de https://spoonacular.com/food-api/console
+VITE_SPOONACULAR_KEY=5fa6d9d3480045d98e30afb7cf2cb26b
