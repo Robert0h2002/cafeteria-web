@@ -1,13 +1,18 @@
 import Header from './components/Header';
+import Hero from './components/Hero';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <>
       <Header />
       <main>
-        <h1>Cafetería</h1>
-        <p>Proyecto en construcción: Tecnologías Web I.</p>
+        <Hero />
+        <section id="menu">
+          {/* Aquí irá el menú de bebidas y postres */}
+        </section>
       </main>
+      <Footer />
     </>
   );
 }
