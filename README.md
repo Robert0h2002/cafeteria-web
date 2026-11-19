@@ -57,6 +57,21 @@ src/
 
 Las tareas de cada etapa están en la pestaña **Issues** del repositorio.
 
+## Créditos de las fotos
+
+Las fotos de `public/img/cafes/` son de [Wikimedia Commons](https://commons.wikimedia.org) y se usan según su licencia:
+
+| Archivo | Autor | Licencia |
+|---|---|---|
+| `espresso.jpg` | [Lemone](https://commons.wikimedia.org/wiki/File:Tazzina_di_caff%C3%A8_a_Ventimiglia.jpg) | CC BY-SA 4.0 |
+| `americano.jpg` | [Sameer.siddhanti](https://commons.wikimedia.org/wiki/File:Espresso_Americano.jpeg) | Dominio público |
+| `cappuccino.jpg` | [Vee Satayamas](https://commons.wikimedia.org/wiki/File:Cappuccino_in_original.jpg) | CC BY 2.0 |
+| `latte.jpg` | [B adger1](https://commons.wikimedia.org/wiki/File:Caffe_Latte_at_Pulse_Cafe.jpg) | CC0 |
+| `mocaccino.jpg` | [Ernst Vikne](https://commons.wikimedia.org/wiki/File:Mocha_coffee.jpg) | CC BY-SA 2.0 |
+| `cafe-helado.jpg` | [Tony Webster](https://commons.wikimedia.org/wiki/File:Iced_Coffee_in_Glass_-_Sunshine_Coffee_-_Laramie_Cafe_(53838344552).jpg) | CC BY 2.0 |
+
+Las imágenes de las bebidas especiales vienen de la API de Spoonacular.
+
 ## Forma de trabajo
 
 - Cada tarea es un issue con su responsable.
