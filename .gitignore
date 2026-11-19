@@ -25,3 +25,6 @@ dist-ssr
 
 # Clave de Spoonacular (no se sube a GitHub)
 .env
+# Cualquier variante (.env.local, ".env " con espacio, etc.), menos el ejemplo
+.env*
+!.env.example
