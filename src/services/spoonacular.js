@@ -69,3 +69,10 @@ export const obtenerBebidas = () => {
 export const obtenerPostres = () => {
     return buscarRecetas('menu-postres', 'type=dessert&includeIngredients=coffee&sort=popularity');
 };
+
+// busca postres y bebidas por nombre
+export const buscarPorNombre = (texto) => {
+    const limpio = texto.trim().toLowerCase();
+    // cada busqueda se guarda con su propio nombre
+    return buscarRecetas(`busqueda-${limpio}`, `type=dessert,beverage&query=${encodeURIComponent(limpio)}`);
+};
