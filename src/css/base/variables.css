@@ -1,8 +1,8 @@
-/* Paleta de la cafetería (modo claro) */
+/* colores y medidas del modo claro */
 :root {
-    --color-primary: #6f4e37;      /* café */
-    --color-secondary: #c8a27a;    /* caramelo */
-    --color-background: #f8f3ec;   /* crema */
+    --color-primary: #6f4e37;
+    --color-secondary: #c8a27a;
+    --color-background: #f8f3ec;
     --color-card: #ffffff;
     --color-text: #2d2018;
     --color-text-soft: #7a6a5d;
@@ -24,7 +24,7 @@
     --transition-fast: 0.2s ease;
 }
 
-/* Modo oscuro */
+/* colores del modo oscuro */
 [data-theme='dark'] {
     --color-primary: #d4a373;
     --color-secondary: #a47148;

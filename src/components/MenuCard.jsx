@@ -1,7 +1,6 @@
 import '../css/components/menu-card.css';
 
-// tag, description y price son opcionales:
-// los cafés propios traen todo, las recetas de la API solo título e imagen
+// tarjeta de un producto del menu
 function MenuCard({ title, image, price, tag, description }) {
   return (
     <article className="menu-card">

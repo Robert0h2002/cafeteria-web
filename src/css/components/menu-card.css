@@ -18,26 +18,27 @@
 }
 
 .menu-grid {
+  /* celular una columna */
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--spacing-large);
 }
 
-/* Tablet: 2 columnas */
+/* tablet dos columnas */
 @media (min-width: 640px) {
   .menu-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Escritorio: 3 columnas */
+/* escritorio tres columnas */
 @media (min-width: 960px) {
   .menu-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Pantalla grande: 4 columnas */
+/* pantalla grande cuatro columnas */
 @media (min-width: 1200px) {
   .menu-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -103,7 +104,6 @@
   color: var(--color-text-soft);
 }
 
-/* El precio queda siempre al fondo de la tarjeta */
 .menu-card__price {
   margin-top: auto;
 }

@@ -1,21 +1,20 @@
-// Servicio que se comunica con la API de Spoonacular
-// La clave se lee del archivo .env (no se sube a GitHub)
+// servicio que llama a la api de spoonacular
+// la clave se lee del archivo env
 const API_KEY = import.meta.env.VITE_SPOONACULAR_KEY;
 const BASE_URL = 'https://api.spoonacular.com';
 const CANTIDAD = 8;
 
-// Es una cafetería: quitamos las recetas con alcohol (cócteles, licores)
+// ingredientes con alcohol que no queremos
 const SIN_ALCOHOL = 'rum,vodka,gin,tequila,whiskey,bourbon,wine,beer,liqueur,brandy,kahlua,champagne,vermouth';
 
-// Imagen local por si la receta no trae foto
+// imagen por si la receta no trae foto
 const IMAGEN_RESPALDO = '/taza.svg';
 
-// Función común: busca recetas con los filtros que le pasemos.
-// Guarda el resultado en localStorage para no gastar puntos de la API:
-// si ya se pidió hoy, devuelve lo guardado sin llamar a Spoonacular.
+// busca recetas con los filtros que le pasamos
 const buscarRecetas = async (clave, filtros) => {
-    const hoy = new Date().toDateString(); // ej: "Wed Nov 18 2026"
+    const hoy = new Date().toDateString();
 
+    // si ya se pidio hoy usa lo guardado
     const guardado = localStorage.getItem(clave);
     if (guardado) {
         const cache = JSON.parse(guardado);
@@ -24,8 +23,10 @@ const buscarRecetas = async (clave, filtros) => {
         }
     }
 
+    // arma la url con los parametros
     const url = `${BASE_URL}/recipes/complexSearch?apiKey=${API_KEY}&${filtros}&excludeIngredients=${SIN_ALCOHOL}&number=${CANTIDAD}`;
 
+    // pide los datos a la api
     let respuesta;
     try {
         respuesta = await fetch(url);
@@ -33,6 +34,7 @@ const buscarRecetas = async (clave, filtros) => {
         throw new Error('Error de conexión. Revisa tu internet.');
     }
 
+    // revisa los errores de la api
     if (respuesta.status === 401) {
         throw new Error('API Key inválida. Revisa el archivo .env');
     }
@@ -45,25 +47,32 @@ const buscarRecetas = async (clave, filtros) => {
 
     const datos = await respuesta.json();
 
-    // Adaptamos la respuesta de la API a nuestro propio objeto
+    // adapta la respuesta a nuestro objeto
     const recetas = datos.results.map((receta) => ({
         id: receta.id,
         titulo: receta.title,
         imagen: receta.image || IMAGEN_RESPALDO
     }));
 
-    // Lo guardamos con la fecha de hoy
+    // guarda las recetas con la fecha de hoy
     localStorage.setItem(clave, JSON.stringify({ fecha: hoy, datos: recetas }));
 
     return recetas;
 };
 
-// Bebidas más populares (sin alcohol)
+// pide las bebidas mas populares
 export const obtenerBebidas = () => {
     return buscarRecetas('menu-bebidas', 'type=beverage&sort=popularity');
 };
 
-// Postres que llevan café entre sus ingredientes
+// pide los postres que llevan cafe
 export const obtenerPostres = () => {
     return buscarRecetas('menu-postres', 'type=dessert&includeIngredients=coffee&sort=popularity');
+};
+
+// busca postres y bebidas por nombre
+export const buscarPorNombre = (texto) => {
+    const limpio = texto.trim().toLowerCase();
+    // cada busqueda se guarda con su propio nombre
+    return buscarRecetas(`busqueda-${limpio}`, `type=dessert,beverage&query=${encodeURIComponent(limpio)}`);
 };
