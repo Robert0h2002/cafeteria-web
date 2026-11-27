@@ -1,5 +1,6 @@
 import '../css/components/hero.css';
 
+// portada con boton al menu
 function Hero() {
   return (
     <section id="inicio" className="hero">

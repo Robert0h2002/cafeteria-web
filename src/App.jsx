@@ -7,21 +7,22 @@ import Footer from './components/Footer';
 import { obtenerBebidas, obtenerPostres } from './services/spoonacular';
 import cafes from './data/cafes';
 
+// componente principal de la pagina
 function App() {
 
-    // Bebidas (API)
+    // estados de las bebidas
     const [bebidas, setBebidas] = useState([]);
     const [loadingBebidas, setLoadingBebidas] = useState(true);
     const [errorBebidas, setErrorBebidas] = useState(null);
     const [intentoBebidas, setIntentoBebidas] = useState(0);
 
-    // Postres con café (API)
+    // estados de los postres
     const [postres, setPostres] = useState([]);
     const [loadingPostres, setLoadingPostres] = useState(true);
     const [errorPostres, setErrorPostres] = useState(null);
     const [intentoPostres, setIntentoPostres] = useState(0);
 
-    // Carga las bebidas al iniciar y cada vez que se pulsa "Reintentar"
+    // carga las bebidas al iniciar y al reintentar
     useEffect(() => {
         const cargarBebidas = async () => {
             try {
@@ -39,7 +40,7 @@ function App() {
         cargarBebidas();
     }, [intentoBebidas]);
 
-    // Carga los postres al iniciar y cada vez que se pulsa "Reintentar"
+    // carga los postres al iniciar y al reintentar
     useEffect(() => {
         const cargarPostres = async () => {
             try {
@@ -57,14 +58,17 @@ function App() {
         cargarPostres();
     }, [intentoPostres]);
 
+    // lo que se muestra en pantalla
     return (
         <>
+            {/* encabezado con modo oscuro */}
             <Header />
 
             <main>
+                {/* portada */}
                 <Hero />
 
-                {/* Cafés: datos propios (src/data/cafes.js) */}
+                {/* seccion de cafes propios */}
                 <section id="menu" className="menu-section">
                     <h2 className="menu-section__title">Nuestros cafés</h2>
                     <p className="menu-section__subtitle">Preparados con café boliviano.</p>
@@ -83,7 +87,7 @@ function App() {
                     </div>
                 </section>
 
-                {/* Postres: API de Spoonacular */}
+                {/* seccion de postres de la api */}
                 <section id="postres" className="menu-section">
                     <h2 className="menu-section__title">Postres con café</h2>
                     <p className="menu-section__subtitle">Dulces que llevan café entre sus ingredientes.</p>
@@ -109,7 +113,7 @@ function App() {
                     )}
                 </section>
 
-                {/* Bebidas: API de Spoonacular */}
+                {/* seccion de bebidas de la api */}
                 <section id="bebidas" className="menu-section">
                     <h2 className="menu-section__title">Bebidas especiales</h2>
                     <p className="menu-section__subtitle">Smoothies, tés y batidos para acompañar.</p>
@@ -136,6 +140,7 @@ function App() {
                 </section>
             </main>
 
+            {/* pie de pagina */}
             <Footer />
         </>
     );

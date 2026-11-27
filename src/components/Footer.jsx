@@ -1,5 +1,6 @@
 import '../css/components/footer.css';
 
+// pie con direccion horario y redes
 function Footer() {
   return (
     <footer id="contacto" className="footer">

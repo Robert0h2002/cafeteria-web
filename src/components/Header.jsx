@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
 import '../css/components/header.css';
 
+// encabezado con logo menu y modo oscuro
 function Header() {
+  // tema guardado o claro por defecto
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'light';
   });
 
+  // aplica el tema y lo guarda
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  // cambia entre claro y oscuro
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
