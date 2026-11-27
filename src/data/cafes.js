@@ -1,6 +1,4 @@
-// Cafés propios de la cafetería (no vienen de la API)
-// Spoonacular es una API de recetas y casi no tiene bebidas de café,
-// así que los cafés los definimos nosotros, con su precio en bolivianos.
+// lista de cafes propios con precio en bs
 const cafes = [
     {
         id: 'cafe-1',

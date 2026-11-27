@@ -1,6 +1,6 @@
-// Muestra "cargando", el error con su botón o "sin resultados".
-// Si todo está bien no muestra nada (return null).
+// muestra cargando error o sin resultados
 function Estado({ loading, error, vacio, onReintentar }) {
+    // si esta cargando
     if (loading) {
         return (
             <div className="estado">
@@ -10,6 +10,7 @@ function Estado({ loading, error, vacio, onReintentar }) {
         );
     }
 
+    // si hubo un error
     if (error) {
         return (
             <div className="estado estado--error">
@@ -21,6 +22,7 @@ function Estado({ loading, error, vacio, onReintentar }) {
         );
     }
 
+    // si no hay resultados
     if (vacio) {
         return (
             <div className="estado">
@@ -29,6 +31,7 @@ function Estado({ loading, error, vacio, onReintentar }) {
         );
     }
 
+    // si todo esta bien no muestra nada
     return null;
 }
 
