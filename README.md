@@ -51,9 +51,9 @@ src/
 
 | Entrega | Objetivo |
 |---|---|
-| Jueves 19 nov | Encabezado con modo oscuro, portada, menú de bebidas cargado desde la API, pie de página |
-| Jueves 26 nov | Buscador, filtro bebidas/postres, ventana de detalle, resultados guardados en `localStorage` |
-| Jueves 3 dic | Carrito con precios en Bs, formulario de pedido validado, diseño para celular, página publicada |
+| 19 nov | Encabezado con modo oscuro, portada, menú de bebidas cargado desde la API, pie de página |
+| 30 nov | Buscador, ventana de detalle de cada producto, filtro por categoría |
+| 7 dic (entrega final) | Carrito con precios en Bs, formulario de pedido validado, diseño para celular, página publicada |
 
 Las tareas de cada etapa están en la pestaña **Issues** del repositorio.
 
