@@ -1,9 +1,9 @@
 import '../css/components/menu-card.css';
 
 // tarjeta de un producto del menu
-function MenuCard({ title, image, price, tag, description }) {
+function MenuCard({ title, image, price, tag, description, onClick }) {
   return (
-    <article className="menu-card">
+    <article className="menu-card" onClick={onClick}>
       <img src={image} alt={title} className="menu-card__image" loading="lazy" />
       <div className="menu-card__body">
         {tag && <span className="menu-card__tag">{tag}</span>}

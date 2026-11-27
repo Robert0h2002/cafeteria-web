@@ -4,7 +4,7 @@ import Hero from './components/Hero';
 import MenuCard from './components/MenuCard';
 import Estado from './components/Estado';
 import Footer from './components/Footer';
-import { obtenerBebidas, obtenerPostres, buscarPorNombre } from './services/spoonacular';
+import { obtenerBebidas, obtenerPostres, buscarPorNombre, obtenerDetalle } from './services/spoonacular';
 import cafes from './data/cafes';
 
 // componente principal de la pagina
@@ -35,6 +35,47 @@ function App() {
 
     // mientras se escribe o se espera la respuesta se muestra cargando
     const cargandoBusqueda = loadingBusqueda || busqueda.trim() !== buscado;
+
+    // estados del detalle
+    const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+    const [loadingDetalle, setLoadingDetalle] = useState(false);
+    const [errorDetalle, setErrorDetalle] = useState(null);
+
+    // abre el detalle de un cafe propio con sus datos
+    const abrirCafe = (cafe) => {
+        setErrorDetalle(null);
+        setProductoSeleccionado({
+            id: cafe.id,
+            titulo: cafe.titulo,
+            imagen: cafe.imagen,
+            resumen: cafe.descripcion,
+            precio: cafe.precio,
+            ingredientes: []
+        });
+    };
+
+    // abre el detalle de una receta y lo pide a la api
+    const abrirReceta = async (receta) => {
+        // muestra lo que ya se tiene mientras llega el resto
+        setProductoSeleccionado({ ...receta, ingredientes: [] });
+        try {
+            setLoadingDetalle(true);
+            setErrorDetalle(null);
+            const detalle = await obtenerDetalle(receta.id);
+            // solo si sigue abierta la misma receta
+            setProductoSeleccionado((actual) => (actual && actual.id === detalle.id ? detalle : actual));
+        } catch (err) {
+            console.error(err);
+            setErrorDetalle(err.message);
+        } finally {
+            setLoadingDetalle(false);
+        }
+    };
+
+    // cierra la ventana del detalle
+    const cerrarDetalle = () => {
+        setProductoSeleccionado(null);
+    };
 
     // cafes propios que coinciden con la busqueda
     const cafesEncontrados = cafes.filter((cafe) =>
@@ -144,6 +185,7 @@ function App() {
                             {cafesEncontrados.map((cafe) => (
                                 <MenuCard
                                     key={cafe.id}
+                                    onClick={() => abrirCafe(cafe)}
                                     title={cafe.titulo}
                                     image={cafe.imagen}
                                     tag="Café"
@@ -154,6 +196,7 @@ function App() {
                             {!cargandoBusqueda && !errorBusqueda && resultados.map((receta) => (
                                 <MenuCard
                                     key={receta.id}
+                                    onClick={() => abrirReceta(receta)}
                                     title={receta.titulo}
                                     image={receta.imagen}
                                     tag="Receta"
@@ -182,6 +225,7 @@ function App() {
                                 {cafes.map((cafe) => (
                                     <MenuCard
                                         key={cafe.id}
+                                        onClick={() => abrirCafe(cafe)}
                                         title={cafe.titulo}
                                         image={cafe.imagen}
                                         tag="Café"
@@ -209,6 +253,7 @@ function App() {
                                     {postres.map((postre) => (
                                         <MenuCard
                                             key={postre.id}
+                                            onClick={() => abrirReceta(postre)}
                                             title={postre.titulo}
                                             image={postre.imagen}
                                             tag="Postre"
@@ -235,6 +280,7 @@ function App() {
                                     {bebidas.map((bebida) => (
                                         <MenuCard
                                             key={bebida.id}
+                                            onClick={() => abrirReceta(bebida)}
                                             title={bebida.titulo}
                                             image={bebida.imagen}
                                             tag="Bebida"
@@ -246,6 +292,43 @@ function App() {
                     </>
                 )}
             </main>
+
+            {/* detalle temporal hasta que este la ventana del issue 15 */}
+            {productoSeleccionado && (
+                <div
+                    onClick={cerrarDetalle}
+                    style={{ position: 'fixed', inset: 0, background: 'rgba(0, 0, 0, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px', zIndex: 200 }}
+                >
+                    <div
+                        onClick={(e) => e.stopPropagation()}
+                        style={{ background: 'var(--color-card)', color: 'var(--color-text)', borderRadius: 'var(--radius)', padding: '24px', maxWidth: '520px', width: '100%', maxHeight: '90vh', overflowY: 'auto' }}
+                    >
+                        <button onClick={cerrarDetalle} style={{ float: 'right' }}>✕</button>
+                        <img src={productoSeleccionado.imagen} alt={productoSeleccionado.titulo} style={{ borderRadius: '8px', margin: '32px 0 16px' }} />
+                        <h2>{productoSeleccionado.titulo}</h2>
+
+                        {loadingDetalle && <p>Cargando el detalle...</p>}
+                        {errorDetalle && <p>{errorDetalle}</p>}
+
+                        {productoSeleccionado.resumen && <p>{productoSeleccionado.resumen}</p>}
+                        {productoSeleccionado.precio && <p><strong>Bs {productoSeleccionado.precio}</strong></p>}
+                        {productoSeleccionado.minutos && (
+                            <p>Listo en {productoSeleccionado.minutos} minutos · {productoSeleccionado.porciones} porciones</p>
+                        )}
+
+                        {productoSeleccionado.ingredientes.length > 0 && (
+                            <>
+                                <h3 style={{ marginTop: '16px' }}>Ingredientes</h3>
+                                <ul style={{ paddingLeft: '20px' }}>
+                                    {productoSeleccionado.ingredientes.map((ingrediente, i) => (
+                                        <li key={i}>{ingrediente}</li>
+                                    ))}
+                                </ul>
+                            </>
+                        )}
+                    </div>
+                </div>
+            )}
 
             {/* pie de pagina */}
             <Footer />
